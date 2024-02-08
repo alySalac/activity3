@@ -1,5 +1,33 @@
+<?php
+
+include "config.php";  
+
+if (isset($_POST ['login'])){
+
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  $sql = "INSERT INTO `tb_userinfo` (`username`, `password`) VALUES ('$username', '$password')";
+
+  $result = $conn->query($sql);
+
+  if (isset($username) && isset ($password)){
+    if ($result == TRUE) {
+      echo "New record created successflly";
+      // output data of each row
+      header("Location: product.html");
+    } else {
+      echo "Error:" .$sql ."<br>". $conn->error; 
+    }
+    $conn->close();
+  }
+}
+
+  ?> 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,24 +35,66 @@
     <link href="style.css" rel="stylesheet">
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Document</title>
+    <title>DevopsAct3</title>
 </head>
 <body>
 
 <div class="container">
   <div class="navbar">
     <div class="logo">
-      <a href="index.html"><img src="https://i.ibb.co/kDVwgwp/logo.png" alt="RedStore" width="125px" /></a>
+      <a href="index.html"><img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/online-shopping-logo%2Cecommerce-logo%2Cshopify-design-template-6e30b0d4ebadd7f0b368d600c50d9ada_screen.jpg?ts=1677668442" alt="RedStore" width="125px" /></a>
     </div>
     <nav>
       <ul id="MenuItems">
         <li><a href="index.html">Home</a></li>
         <li><a href="product.html">Products</a></li>
         <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+       
         <li><a href="account.html">Account</a></li>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+          Login
+        </button>
       </ul>
-    </nav>
+      
+      <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="padding:35px 50px;">
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <form role="form" method="POST" >
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+              <input type="text" name = "username" class="form-control" id="usrname" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+              <input type="text" name = "password" class="form-control" id="psw" placeholder="Enter password">
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="" checked>Remember me</label>
+            </div>
+              <button type="submit" name = "login" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+          <p>Not a member? <a href="#">Sign Up</a></p>
+          <p>Forgot <a href="#">Password?</a></p>
+        </div>
+      </div>
+      <script>
+      $(document).ready(function(){
+      $("#myBtn").click(function(){
+     $("#myModal").modal();
+       });
+});
+</script>
+</nav>
+    <div>
     <a href="cart.html"><img src="https://i.ibb.co/PNjjx3y/cart.png" alt="" width="30px" height="30px" /></a>
     <img src="https://i.ibb.co/6XbqwjD/menu.png" alt="" class="menu-icon" onclick="menutoggle()" />
   </div>
@@ -32,19 +102,13 @@
 
 <div class="small-container">
   <div class="row row-2">
-    <h2>All Products</h2>
-    <select>
-      <option value="">Default Shorting</option>
-      <option value="">Short by price</option>
-      <option value="">Short by popularity</option>
-      <option value="">Short by rating</option>
-      <option value="">Short by sale</option>
-    </select>
+    <h2>Top Products</h2>
+  </div>
   </div>
   <div class="row">
     <div class="col-4">
-      <img src="https://i.ibb.co/47Sk9QL/product-1.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <img src="https://down-ph.img.susercontent.com/file/sg-11134201-22110-k5mqzwvv1gjv47" alt="" />
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -52,12 +116,12 @@
         <i class="fas fa-star"></i>
         <i class="far fa-star"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
 
     <div class="col-4">
-      <img src="https://i.ibb.co/b7ZVzYr/product-2.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <img src="https://down-ph.img.susercontent.com/file/16393e1842c613f2b9b852e70feb954a" alt="" />
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -65,12 +129,12 @@
         <i class="far fa-star"></i>
         <i class="far fa-star"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
 
     <div class="col-4">
       <img src="https://i.ibb.co/KsMVr26/product-3.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -78,12 +142,12 @@
         <i class="fas fa-star"></i>
         <i class="fas fa-star-half-alt"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
 
     <div class="col-4">
       <img src="https://i.ibb.co/0cMfpcr/product-4.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -91,14 +155,14 @@
         <i class="far fa-star"></i>
         <i class="far fa-star"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
   </div>
 
   <div class="row">
     <div class="col-4">
       <img src="https://i.ibb.co/47Sk9QL/product-1.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -106,12 +170,12 @@
         <i class="fas fa-star"></i>
         <i class="far fa-star"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
 
     <div class="col-4">
       <img src="https://i.ibb.co/b7ZVzYr/product-2.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -119,12 +183,12 @@
         <i class="far fa-star"></i>
         <i class="far fa-star"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
 
     <div class="col-4">
       <img src="https://i.ibb.co/KsMVr26/product-3.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -132,12 +196,12 @@
         <i class="fas fa-star"></i>
         <i class="fas fa-star-half-alt"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
 
     <div class="col-4">
       <img src="https://i.ibb.co/0cMfpcr/product-4.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -145,14 +209,14 @@
         <i class="far fa-star"></i>
         <i class="far fa-star"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
   </div>
 
   <div class="row">
     <div class="col-4">
       <img src="https://i.ibb.co/bQ5t8bR/product-5.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -160,12 +224,12 @@
         <i class="fas fa-star"></i>
         <i class="far fa-star"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
 
     <div class="col-4">
       <img src="https://i.ibb.co/vVpTyBD/product-6.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -173,12 +237,12 @@
         <i class="far fa-star"></i>
         <i class="far fa-star"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
 
     <div class="col-4">
       <img src="https://i.ibb.co/hR5FGwH/product-7.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -186,12 +250,12 @@
         <i class="fas fa-star"></i>
         <i class="fas fa-star-half-alt"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
 
     <div class="col-4">
       <img src="https://i.ibb.co/QfCgdXZ/product-8.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -199,14 +263,14 @@
         <i class="far fa-star"></i>
         <i class="far fa-star"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
   </div>
 
   <div class="row">
     <div class="col-4">
       <img src="https://i.ibb.co/nw5xZwk/product-9.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -214,12 +278,12 @@
         <i class="fas fa-star"></i>
         <i class="far fa-star"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
 
     <div class="col-4">
       <img src="https://i.ibb.co/9HCsmjf/product-10.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -227,12 +291,12 @@
         <i class="far fa-star"></i>
         <i class="far fa-star"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
 
     <div class="col-4">
       <img src="https://i.ibb.co/JQ2MBHR/product-11.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -240,12 +304,12 @@
         <i class="fas fa-star"></i>
         <i class="fas fa-star-half-alt"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
 
     <div class="col-4">
       <img src="https://i.ibb.co/nRZMs6Y/product-12.jpg" alt="" />
-      <h4>Red Printed T-shirt</h4>
+      <h4>PRODUCT NAME</h4>
       <div class="rating">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
@@ -253,7 +317,7 @@
         <i class="far fa-star"></i>
         <i class="far fa-star"></i>
       </div>
-      <p>₹500.00</p>
+      <p>500.00</p>
     </div>
   </div>
 
